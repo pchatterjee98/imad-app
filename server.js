@@ -8,7 +8,7 @@ app.use(morgan('combined'));
 var articleOne = {
     title: `This is Partho's heading for article one`,
     heading: 'Article One',
-    date: 'Feb 19,2018'
+    date: 'Feb 19,2018',
     content: `
     <p>
         This will be a paragraph of text -- 1.This will be a paragraph of text -- 1.

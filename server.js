@@ -5,21 +5,55 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleOne = {
-    title: `This is Partho's heading for article one`,
-    heading: 'Article One',
-    date: 'Feb 19,2018',
-    content: `
-    <p>
-        This will be a paragraph of text -- 1.This will be a paragraph of text -- 1.
-        This will be a paragraph of text -- 1.
-        This will be a paragraph of text -- 1.
-    </p>
-    <p>
-        This will be a paragraph of text -- 2. This will be a paragraph of text -- 2.
-        This will be a paragraph of text -- 2.
-    </p>
-    `
+var articles = { 
+    'article-one' : {
+        title: `This is Partho's heading for article one`,
+        heading: 'Article One',
+        date: 'Feb 19,2018',
+        content: `
+        <p>
+            This will be a paragraph of text -- 1.This will be a paragraph of text -- 1.
+            This will be a paragraph of text -- 1.
+            This will be a paragraph of text -- 1.
+        </p>
+        <p>
+            This will be a paragraph of text -- 2. This will be a paragraph of text -- 2.
+            This will be a paragraph of text -- 2.
+        </p>
+        `
+    },
+    'article-two' : {
+         title: `This is Partho's heading for article two`,
+        heading: 'Article Two',
+        date: 'Feb 20,2018',
+        content: `
+        <p>
+            This will be a paragraph of text -- 1.This will be a paragraph of text -- 1.
+            This will be a paragraph of text -- 1.
+            This will be a paragraph of text -- 1.
+        </p>
+        <p>
+            This will be a paragraph of text -- 2. This will be a paragraph of text -- 2.
+            This will be a paragraph of text -- 2.
+        </p>
+        `
+    },
+    'article-three' : {
+         title: `This is Partho's heading for article three`,
+        heading: 'Article Three',
+        date: 'Feb 21,2018',
+        content: `
+        <p>
+            This will be a paragraph of text -- 1.This will be a paragraph of text -- 1.
+            This will be a paragraph of text -- 1.
+            This will be a paragraph of text -- 1.
+        </p>
+        <p>
+            This will be a paragraph of text -- 2. This will be a paragraph of text -- 2.
+            This will be a paragraph of text -- 2.
+        </p>
+        `
+    }
 };
 
 
@@ -58,15 +92,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function(req,res){
-   res.send(createTemplate(articleOne)); 
-});
-app.get('/article-two',function(req,res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));  
-});
-
-app.get('/article-three',function(req,res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));  
+app.get('/:articleName',function(req,res){
+    //articleName == article-one
+    //articles[articleName] == {} content object of article-one
+    var articleName = req.params.articleName;
+   res.send(createTemplate(articles[articleName])); 
 });
 
 app.get('/ui/style.css', function (req, res) {

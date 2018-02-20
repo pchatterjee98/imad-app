@@ -1,19 +1,21 @@
-console.log('Loaded!');
+var button = document.getElementById('counter');
 
-//changing some things using JS
-
-var element = document.getElementById('main-text');
-element.innerHTML= 'New value';
-
-//move the image by clicking on it
-
-var img = document.getElementById('Myimage');
-
-marginLeft = 0;
-function moveRight() {
-    marginLeft = marginLeft +10 ;
-    img.style.marginLeft = marginLeft+'px';
-}
-img.onclick = function () {
-    var interval = setInterval(moveRight,100); 
+button.onclick = function() {
+    //Make a request to counter endpoint
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if(request.readyState == XMLHttpRequest.DONE)
+        {
+            if(request.status==200)
+            {
+                var counter = request.responseText;
+                var span = document.getElementById('count');
+                span.innerHTML=counter.toString();
+            }
+        }
+    };
+   
+   
+   request.open('GET','http://pchat067.imad.hasura-app.io/counter',true);
+   request.send(null);
 };
